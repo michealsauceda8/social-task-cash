@@ -21,7 +21,7 @@ function AdminUsers() {
   const { data } = useQuery({
     queryKey: ["admin-users", q],
     queryFn: async () => {
-      let qb = supabase.from("profiles").select("*").order("created_at", { descending: true }).limit(100);
+      let qb = supabase.from("profiles").select("*").order("created_at", { ascending: false }).limit(100);
       if (q) qb = qb.or(`email.ilike.%${q}%,display_name.ilike.%${q}%`);
       return (await qb).data ?? [];
     },

@@ -12,7 +12,7 @@ export function NotificationsBell() {
   const { data } = useQuery({
     queryKey: ["notifications", user?.id],
     enabled: !!user,
-    queryFn: async () => (await supabase.from("notifications").select("*").order("created_at", { descending: true }).limit(20)).data ?? [],
+    queryFn: async () => (await supabase.from("notifications").select("*").order("created_at", { ascending: false }).limit(20)).data ?? [],
     refetchInterval: 30000,
   });
   const unread = (data ?? []).filter((n) => !n.read).length;

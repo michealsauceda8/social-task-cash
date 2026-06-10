@@ -28,7 +28,7 @@ function AdminOverview() {
   });
   const { data: logs } = useQuery({
     queryKey: ["audit-recent"],
-    queryFn: async () => (await supabase.from("audit_logs").select("*").order("created_at", { descending: true }).limit(20)).data ?? [],
+    queryFn: async () => (await supabase.from("audit_logs").select("*").order("created_at", { ascending: false }).limit(20)).data ?? [],
   });
   return (
     <div className="space-y-6">

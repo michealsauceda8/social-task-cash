@@ -17,7 +17,7 @@ function AdminWD() {
   const review = useServerFn(reviewWithdrawal);
   const { data } = useQuery({
     queryKey: ["admin-wd", filter],
-    queryFn: async () => (await supabase.from("withdrawals").select("*, profile:profiles!withdrawals_user_id_fkey(display_name,email)").eq("status", filter).order("requested_at", { descending: true })).data ?? [],
+    queryFn: async () => (await supabase.from("withdrawals").select("*, profile:profiles!withdrawals_user_id_fkey(display_name,email)").eq("status", filter).order("requested_at", { ascending: false })).data ?? [],
   });
   async function act(id: string, action: "approve" | "reject" | "process") {
     const notes = action === "reject" ? (prompt("Reason?") ?? "") : undefined;

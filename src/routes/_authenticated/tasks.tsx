@@ -19,7 +19,7 @@ function TasksPage() {
   const { data: tasks } = useQuery({
     queryKey: ["tasks-active", filter],
     queryFn: async () => {
-      let q = supabase.from("tasks").select("*").eq("status", "active").order("created_at", { descending: true });
+      let q = supabase.from("tasks").select("*").eq("status", "active").order("created_at", { ascending: false });
       if (filter !== "all") q = q.eq("platform", filter);
       return (await q).data ?? [];
     },

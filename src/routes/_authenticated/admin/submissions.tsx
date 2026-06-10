@@ -17,7 +17,7 @@ function AdminSubs() {
   const review = useServerFn(reviewSubmission);
   const { data } = useQuery({
     queryKey: ["admin-subs", filter],
-    queryFn: async () => (await supabase.from("task_submissions").select("*, task:tasks(title,reward_amount), profile:profiles!task_submissions_user_id_fkey(display_name,email)").eq("status", filter).order("created_at", { descending: true })).data ?? [],
+    queryFn: async () => (await supabase.from("task_submissions").select("*, task:tasks(title,reward_amount), profile:profiles!task_submissions_user_id_fkey(display_name,email)").eq("status", filter).order("created_at", { ascending: false })).data ?? [],
   });
   async function act(id: string, approve: boolean) {
     const notes = approve ? undefined : prompt("Rejection reason?") ?? "Rejected";

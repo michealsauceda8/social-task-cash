@@ -12,7 +12,7 @@ function NotifPage() {
   const qc = useQueryClient();
   const { data } = useQuery({
     queryKey: ["notifications-full", user?.id], enabled: !!user,
-    queryFn: async () => (await supabase.from("notifications").select("*").order("created_at", { descending: true })).data ?? [],
+    queryFn: async () => (await supabase.from("notifications").select("*").order("created_at", { ascending: false })).data ?? [],
   });
   async function markAll() {
     if (!user) return;

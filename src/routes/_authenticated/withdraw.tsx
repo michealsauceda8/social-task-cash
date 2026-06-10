@@ -35,7 +35,7 @@ function WithdrawPage() {
   });
   const { data: history } = useQuery({
     queryKey: ["wd-history", user?.id], enabled: !!user,
-    queryFn: async () => (await supabase.from("withdrawals").select("*").eq("user_id", user!.id).order("requested_at", { descending: true })).data ?? [],
+    queryFn: async () => (await supabase.from("withdrawals").select("*").eq("user_id", user!.id).order("requested_at", { ascending: false })).data ?? [],
   });
 
   async function submit(e: React.FormEvent) {

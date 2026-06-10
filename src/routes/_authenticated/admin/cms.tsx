@@ -75,7 +75,7 @@ function FaqsEditor() {
 function TestimonialsMod() {
   const qc = useQueryClient();
   const mod = useServerFn(moderateTestimonial);
-  const { data } = useQuery({ queryKey: ["test-all"], queryFn: async () => (await supabase.from("testimonials").select("*").order("created_at", { descending: true })).data ?? [] });
+  const { data } = useQuery({ queryKey: ["test-all"], queryFn: async () => (await supabase.from("testimonials").select("*").order("created_at", { ascending: false })).data ?? [] });
   return (
     <div className="space-y-3 mt-4">
       {(data ?? []).map((t) => (

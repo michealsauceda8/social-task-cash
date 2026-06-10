@@ -31,7 +31,7 @@ function Dashboard() {
   });
   const { data: recent } = useQuery({
     queryKey: ["recent-subs", user?.id], enabled: !!user,
-    queryFn: async () => (await supabase.from("task_submissions").select("*, task:tasks(title,reward_amount)").eq("user_id", user!.id).order("created_at", { descending: true }).limit(8)).data ?? [],
+    queryFn: async () => (await supabase.from("task_submissions").select("*, task:tasks(title,reward_amount)").eq("user_id", user!.id).order("created_at", { ascending: false }).limit(8)).data ?? [],
   });
 
   async function handleClaim() {

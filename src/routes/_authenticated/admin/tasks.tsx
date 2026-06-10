@@ -21,7 +21,7 @@ function AdminTasks() {
   const del = useServerFn(deleteTask);
   const { data: tasks } = useQuery({
     queryKey: ["admin-tasks"],
-    queryFn: async () => (await supabase.from("tasks").select("*").order("created_at", { descending: true })).data ?? [],
+    queryFn: async () => (await supabase.from("tasks").select("*").order("created_at", { ascending: false })).data ?? [],
   });
   return (
     <div className="space-y-4">
