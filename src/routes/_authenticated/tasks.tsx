@@ -20,7 +20,7 @@ function TasksPage() {
     queryKey: ["tasks-active", filter],
     queryFn: async () => {
       let q = supabase.from("tasks").select("*").eq("status", "active").order("created_at", { ascending: false });
-      if (filter !== "all") q = q.eq("platform", filter);
+      if (filter !== "all") q = q.eq("platform", filter as "youtube" | "instagram" | "tiktok" | "twitter" | "facebook" | "telegram" | "other");
       return (await q).data ?? [];
     },
   });
