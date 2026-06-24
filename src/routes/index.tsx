@@ -4,14 +4,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, MousePointerClick, Send, Wallet, Sparkles, Shield, Zap } from "lucide-react";
 
+import ogImage from "@/assets/og-image.jpg";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TaskPay — Earn money from social tasks" },
-      { name: "description", content: "Get paid to like, follow, share, and comment. Withdraw anytime once you hit the minimum balance." },
-      { property: "og:title", content: "TaskPay — Earn money from social tasks" },
-      { property: "og:description", content: "Get paid to like, follow, share, and comment." },
+      { title: "TaskPay — Earn cash completing social media tasks" },
+      { name: "description", content: "Earn real money completing quick social tasks — like, follow, share, comment, subscribe. Fast reviews under 24h and flexible payouts with no hidden fees." },
+      { property: "og:title", content: "TaskPay — Earn cash completing social media tasks" },
+      { property: "og:description", content: "Get paid to like, follow, share, comment and subscribe. Reviews in under 24h, withdraw anytime once you hit the minimum balance." },
+      { property: "og:image", content: ogImage },
+      { property: "og:url", content: "https://social-task-cash.lovable.app/" },
+      { name: "twitter:image", content: ogImage },
     ],
+    links: [{ rel: "canonical", href: "https://social-task-cash.lovable.app/" }],
   }),
   component: Landing,
 });
