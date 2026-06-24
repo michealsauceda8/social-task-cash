@@ -36,7 +36,7 @@ Put dev-only values in `.dev.vars` (gitignored), modeled on `.dev.vars.example`.
 bun run cf:deploy
 ```
 
-The build emits `.output/server/index.mjs` (worker) and `.output/public/` (static assets) — both referenced by `wrangler.toml`.
+The build emits `dist/server/server.js` (worker) and `dist/client/` (static assets) — both referenced by `wrangler.toml`.
 
 ## Custom domain
 

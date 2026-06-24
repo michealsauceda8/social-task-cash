@@ -1,12 +1,12 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "taskpay"
-main = ".output/server/index.mjs"
+main = "dist/server/server.js"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Static assets emitted by the Nitro Cloudflare preset
+# Static assets emitted by the Vite client build
 [assets]
-directory = ".output/public"
+directory = "dist/client"
 binding = "ASSETS"
 
 # Required runtime env vars (set real values with `wrangler secret put <NAME>`):
