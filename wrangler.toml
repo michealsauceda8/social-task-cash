@@ -1,0 +1,22 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "taskpay"
+main = ".output/server/index.mjs"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Static assets emitted by the Nitro Cloudflare preset
+[assets]
+directory = ".output/public"
+binding = "ASSETS"
+
+# Required runtime env vars (set real values with `wrangler secret put <NAME>`):
+#   SUPABASE_URL
+#   SUPABASE_PUBLISHABLE_KEY
+#   SUPABASE_SERVICE_ROLE_KEY
+#   LOVABLE_API_KEY
+#
+# Public (client) values are baked in at build time from .env (VITE_*).
+# Do NOT put secrets in [vars] — use `wrangler secret put` instead.
+
+[observability]
+enabled = true
