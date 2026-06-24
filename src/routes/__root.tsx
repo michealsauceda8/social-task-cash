@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import ogImage from "../assets/og-image.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
@@ -53,14 +54,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TaskPay — Get paid for social tasks" },
-      { name: "description", content: "Complete quick social media tasks and earn real money. Like, follow, share — cash out anytime." },
-      { property: "og:title", content: "TaskPay — Get paid for social tasks" },
-      { property: "og:description", content: "Complete quick social media tasks and earn real money." },
+      { title: "TaskPay — Earn cash completing social media tasks" },
+      { name: "description", content: "Earn real money completing quick social tasks — like, follow, share, comment, subscribe. Fast reviews under 24h and flexible payouts with no hidden fees." },
+      { property: "og:site_name", content: "TaskPay" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
