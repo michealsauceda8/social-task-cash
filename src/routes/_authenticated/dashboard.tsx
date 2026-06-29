@@ -81,13 +81,14 @@ function Dashboard() {
           </div>
         </div>
         <div className="rounded-2xl bg-gradient-primary p-6 text-primary-foreground shadow-glow">
-          <div className="text-xs uppercase tracking-wider opacity-80">Ready to earn?</div>
-          <div className="font-display text-2xl font-bold mt-1">New tasks waiting</div>
-          <p className="text-sm opacity-80 mt-2">Fresh campaigns added daily.</p>
-          <Link to="/tasks" className="mt-6 inline-block">
-            <Button variant="secondary" size="sm">Browse tasks →</Button>
+          <div className="text-xs uppercase tracking-wider opacity-80">Refer & earn</div>
+          <div className="font-display text-2xl font-bold mt-1">Invite friends, get paid</div>
+          <p className="text-sm opacity-80 mt-2">Earn a bonus each time a friend completes their first task.</p>
+          <Link to="/referrals" className="mt-6 inline-block">
+            <Button variant="secondary" size="sm">Get your referral link →</Button>
           </Link>
         </div>
+
       </div>
     </div>
   );

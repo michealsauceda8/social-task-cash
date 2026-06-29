@@ -54,7 +54,7 @@ export const reviewSubmission = createServerFn({ method: "POST" })
     if (data.approve) {
       const { data: prof } = await supabaseAdmin
         .from("profiles")
-        .select("balance_available,total_earned")
+        .select("balance_available,total_earned,referred_by")
         .eq("id", sub.user_id)
         .single();
       await supabaseAdmin
@@ -64,7 +64,53 @@ export const reviewSubmission = createServerFn({ method: "POST" })
           total_earned: Number(prof?.total_earned ?? 0) + reward,
         })
         .eq("id", sub.user_id);
+
+      // Referral payout — auto-credit on the user's FIRST approved task
+      if (prof?.referred_by) {
+        const { count: priorApproved } = await supabaseAdmin
+          .from("task_submissions")
+          .select("*", { count: "exact", head: true })
+          .eq("user_id", sub.user_id)
+          .eq("status", "approved")
+          .neq("id", data.submissionId);
+
+        if ((priorApproved ?? 0) === 0) {
+          const { data: refRow } = await supabaseAdmin
+            .from("referrals")
+            .select("id,status,referrer_id")
+            .eq("referee_id", sub.user_id)
+            .maybeSingle();
+
+          const { data: enabled } = await supabaseAdmin
+            .from("app_settings").select("value").eq("key", "referral_enabled").single();
+          const { data: rewardSetting } = await supabaseAdmin
+            .from("app_settings").select("value").eq("key", "referral_reward").single();
+          const refReward = Number((rewardSetting?.value as any) ?? 1);
+          const isEnabled = (enabled?.value as any) !== false;
+
+          if (refRow && refRow.status === "pending" && isEnabled && refReward > 0) {
+            const { data: refProf } = await supabaseAdmin
+              .from("profiles")
+              .select("balance_available,total_earned")
+              .eq("id", refRow.referrer_id)
+              .single();
+            await supabaseAdmin.from("profiles").update({
+              balance_available: Number(refProf?.balance_available ?? 0) + refReward,
+              total_earned: Number(refProf?.total_earned ?? 0) + refReward,
+            }).eq("id", refRow.referrer_id);
+            await supabaseAdmin.from("referrals").update({
+              status: "credited",
+              reward_amount: refReward,
+              credited_at: new Date().toISOString(),
+            }).eq("id", refRow.id);
+            await notify(supabaseAdmin, refRow.referrer_id, "referral_credited",
+              `Referral bonus: +$${refReward.toFixed(2)}`,
+              "A friend you invited just completed their first task!");
+          }
+        }
+      }
     }
+
 
     await notify(
       supabaseAdmin,

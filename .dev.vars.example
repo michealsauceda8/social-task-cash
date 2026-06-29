@@ -1,3 +1,9 @@
+# Build-time (used by the Vite client bundle)
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
+VITE_SITE_URL=https://socialtaskpay.com
+
+# Runtime (Cloudflare/Vercel/Netlify env vars — also used by SSR fallback)
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
 SUPABASE_SERVICE_ROLE_KEY=sb_secret_xxx
