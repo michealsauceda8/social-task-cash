@@ -155,6 +155,8 @@ export type Database = {
           id: string
           payout_details: string | null
           payout_method: string | null
+          referral_code: string
+          referred_by: string | null
           status: Database["public"]["Enums"]["user_status"]
           total_earned: number
           updated_at: string
@@ -170,6 +172,8 @@ export type Database = {
           id: string
           payout_details?: string | null
           payout_method?: string | null
+          referral_code: string
+          referred_by?: string | null
           status?: Database["public"]["Enums"]["user_status"]
           total_earned?: number
           updated_at?: string
@@ -185,11 +189,69 @@ export type Database = {
           id?: string
           payout_details?: string | null
           payout_method?: string | null
+          referral_code?: string
+          referred_by?: string | null
           status?: Database["public"]["Enums"]["user_status"]
           total_earned?: number
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_referred_by_fkey"
+            columns: ["referred_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      referrals: {
+        Row: {
+          created_at: string
+          credited_at: string | null
+          id: string
+          referee_id: string
+          referrer_id: string
+          reward_amount: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          credited_at?: string | null
+          id?: string
+          referee_id: string
+          referrer_id: string
+          reward_amount?: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          credited_at?: string | null
+          id?: string
+          referee_id?: string
+          referrer_id?: string
+          reward_amount?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referrals_referee_id_fkey"
+            columns: ["referee_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "referrals_referrer_id_fkey"
+            columns: ["referrer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       task_submissions: {
         Row: {
@@ -411,6 +473,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_referral_code: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
