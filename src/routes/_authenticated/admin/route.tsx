@@ -20,6 +20,7 @@ function AdminLayout() {
     { url: "/admin/submissions", label: "Submissions" },
     { url: "/admin/users", label: "Users" },
     { url: "/admin/withdrawals", label: "Withdrawals" },
+    { url: "/admin/referrals", label: "Referrals" },
     { url: "/admin/cms", label: "Site Content" },
   ];
   return (

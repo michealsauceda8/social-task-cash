@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, ListChecks, Wallet, Settings, Shield, LogOut, Bell } from "lucide-react";
+import { LayoutDashboard, ListChecks, Wallet, Settings, Shield, LogOut, Bell, Gift } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, SidebarFooter, useSidebar,
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 const userItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Tasks", url: "/tasks", icon: ListChecks },
+  { title: "Referrals", url: "/referrals", icon: Gift },
   { title: "Withdraw", url: "/withdraw", icon: Wallet },
   { title: "Notifications", url: "/notifications", icon: Bell },
   { title: "Settings", url: "/settings", icon: Settings },
@@ -21,8 +22,10 @@ const adminItems = [
   { title: "Submissions", url: "/admin/submissions", icon: ListChecks },
   { title: "Users", url: "/admin/users", icon: Shield },
   { title: "Withdrawals", url: "/admin/withdrawals", icon: Wallet },
+  { title: "Referrals", url: "/admin/referrals", icon: Gift },
   { title: "Site Content", url: "/admin/cms", icon: Settings },
 ];
+
 
 export function AppSidebar() {
   const { state } = useSidebar();
